@@ -1,4 +1,4 @@
-.SearchComponent {
+/* .SearchComponent {
   height: 20vh;
   width: calc(100% - 4rem);
   display: flex;
@@ -9,4 +9,85 @@
   background: url("/assets/SearchBackground.webp") no-repeat center center fixed;
   background-size: contain;
   border-radius: 10px;
+}
+.SearchInputContainer{
+  background-color:rgba(255, 255, 255, 0.85);
+  width: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+.SearchInputContainer:hover{
+  background-color:white;
+
+}
+.SearchInput{
+  width: 100vh;
+  background: transparent;
+  outline: none;
+  border: none;
+}
+.SearchButton{
+  border-radius: 10px;
+} */
+
+
+.SearchComponent {
+  height: 20vh;
+  width: calc(100% - 4rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem auto; /* Use shorthand for margin-top/bottom and margin-left/right */
+  background: url("/assets/SearchBackground.webp") no-repeat center center fixed;
+  background-size: cover; /* Ensure the background covers the entire element */
+  border-radius: 10px;
+  /* Add a subtle box shadow for depth */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+.SearchInputContainer {
+  background-color: rgba(255, 255, 255, 0.85);
+  width: 80%; /* Adjust width as needed, using a percentage for responsiveness */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  padding: 1rem; /* Add some padding for better spacing */
+  transition: background-color 0.2s ease; /* Add a smooth transition for hover effect */
+}
+
+.SearchInputContainer:hover {
+  background-color: white;
+}
+
+.SearchInput {
+  width: 100%;
+  background: transparent;
+  outline: none;
+  border: none;
+  font-size: 1.2rem; /* Adjust font size as needed */
+}
+
+.SearchButton {
+  border-radius: 10px;
+  padding: 0.8rem 1.5rem; /* Adjust padding for a larger button */
+  background-color: #007bff; 
+  color: white;
+  border: none;
+  cursor: pointer; 
+  transition: background-color 0.2s ease, transform 0.1s ease; /* Add a subtle transform transition */
+  font-weight: 500; /* Slightly bolder font weight */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+}
+
+.SearchButton:hover {
+  background-color: #0056b3; 
+  transform: translateY(-1px); /* Slightly lift the button on hover */
+}
+
+.SearchButton:active {
+  transform: translateY(1px); /* Slightly push down the button on click */
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2); /* Reduce box shadow on click */
 }
