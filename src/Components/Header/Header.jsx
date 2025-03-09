@@ -13,10 +13,13 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import "./Header.css";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 const pages = ["Jobs", "Companies", "Services"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = [ "Logout"];
 
 function Header() {
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -31,10 +34,16 @@ function Header() {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (id) => {
     setAnchorElUser(null);
+    if(id==="Logout"){
+      toast.success("Logout completed")
+      sessionStorage.removeItem("authenticated");
+      sessionStorage.removeItem("userDetails");
+      navigate("/login")
+    }
   };
-
+  const user = JSON.parse(sessionStorage.getItem("userDetails"))?.name;
   return (
     <AppBar position="static">
       <Container
@@ -130,7 +139,7 @@ function Header() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <Avatar>{user[0]}</Avatar>
               </IconButton>
             </Tooltip>
             <Menu
@@ -150,7 +159,7 @@ function Header() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={()=>handleCloseUserMenu(setting)}>
                   <Typography sx={{ textAlign: "center" }}>
                     {setting}
                   </Typography>

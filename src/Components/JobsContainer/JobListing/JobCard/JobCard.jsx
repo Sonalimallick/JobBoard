@@ -26,7 +26,7 @@ function JobCard(props) {
         <div className="Criteria">
           {!!job?.qualifications &&
             JSON.parse(job?.qualifications)?.map((qf) => (
-              <span className="badge_qf">{qf}</span>
+              <span className="badge_qf" key={qf}>{qf}</span>
             ))}
         </div>
         <div className="JobAttribute">

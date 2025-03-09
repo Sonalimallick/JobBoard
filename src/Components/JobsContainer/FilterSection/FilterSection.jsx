@@ -1,20 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import "./FilterSection.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateCategory, updateLocation } from "../../../Redux/JobReducer/JobSlice";
 
-const JobFilter = ({ onFilterChange }) => {
-  const { jobData } = useSelector((state) => state?.jobs);
-  const [fullTime, setFullTime] = useState(false);
-  const [location, setLocation] = useState("");
-
+const JobFilter = () => {
+  const dispatch = useDispatch();
+  const { jobData,categoryFilter,locationFilter } = useSelector((state) => state?.jobs);
   const handleFullTimeChange = (e) => {
-    setFullTime(e.target.checked);
-    onFilterChange({ fullTime: e.target.checked, location });
+    dispatch(updateCategory(e?.target?.name))
   };
 
   const handleLocationChange = (e) => {
-    setLocation(e.target.value);
-    onFilterChange({ fullTime, location: e.target.value });
+    dispatch(updateLocation(e?.target?.value))
+
   };
   const unique_job_categories = [
     ...new Set(jobData?.map((job) => job?.job_category)),
@@ -22,29 +20,22 @@ const JobFilter = ({ onFilterChange }) => {
   const unique_job_locations = [
     ...new Set(jobData?.map((job) => job?.location?.split(", ")?.[1])),
   ].sort();
-  console.log(unique_job_locations);
   return (
     <div className="JobFilter">
       {!!unique_job_categories?.length && <h4>Category</h4>}
       {!!unique_job_categories &&
         unique_job_categories?.map((job_category) => (
-          <label>
+          <label key={job_category}>
             <input
               type="checkbox"
-              checked={fullTime}
+              name={job_category}
+              checked={categoryFilter?.includes(job_category)}
               onChange={handleFullTimeChange}
             />
             {job_category}
           </label>
         ))}
       <h4>Location</h4>
-      <input
-        type="text"
-        placeholder="City, state, zip code or country"
-        value={location}
-        onChange={handleLocationChange}
-      />
-
       <div className="radio-options">
         {unique_job_locations.map((city) => (
           <label key={city}>
@@ -52,8 +43,8 @@ const JobFilter = ({ onFilterChange }) => {
               type="radio"
               name="location"
               value={city}
-              checked={location === city}
-              onChange={handleLocationChange}
+              checked={locationFilter === city}
+              onClick={handleLocationChange}
             />
             {city}
           </label>
