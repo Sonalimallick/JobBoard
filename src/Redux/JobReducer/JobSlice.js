@@ -6,6 +6,7 @@ const initialState = {
   jobData: [],
   categoryFilter:[],
   locationFilter: "",
+  searchFilter: "",
 };
 
 export const jobReducer = createSlice({
@@ -28,6 +29,11 @@ export const jobReducer = createSlice({
           : payload;
       }
     },
+    updateSearch: (state,action) => {
+      if (action?.payload) {
+       state.searchFilter = action.payload;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getJobsData.pending, (state) => {
@@ -40,7 +46,7 @@ export const jobReducer = createSlice({
   },
 });
 
-export const {updateCategory,updateLocation} = jobReducer.actions;
+export const {updateCategory,updateLocation,updateSearch} = jobReducer.actions;
 export const getJobsData = createAsyncThunk("jobs/getJobsData", async () => {
   const response = await axios({
     method: "get",

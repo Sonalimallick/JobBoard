@@ -15,7 +15,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import "./Header.css";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
-const pages = ["Jobs", "Companies", "Services"];
+const pages = [];
 const settings = [ "Logout"];
 
 function Header() {
@@ -47,7 +47,7 @@ function Header() {
   return (
     <AppBar position="static">
       <Container
-        maxWidth="xl"
+        maxWidth="xxl"
         sx={{
           mx: 0,
         }}
@@ -58,7 +58,6 @@ function Header() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },

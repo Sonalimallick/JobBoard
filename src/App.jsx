@@ -6,6 +6,7 @@ import AuthHoc from "./Auth/AuthHoc";
 import LoginPage from "./Pages/Login/Login";
 import { SignupPage } from "./Pages/Signup/Signup";
 import { ToastContainer } from 'react-toastify';
+import ApplyJob from "./Pages/ApplyJob/ApplyJob";
 
 function App() {
   return (
@@ -25,6 +26,11 @@ function App() {
             <AuthHoc path="/signup" isPrivate={false} element={<SignupPage/>} />
           }
         />
+       <Route
+        path="/apply-job/:job_id"
+        exact={true}
+        element={<AuthHoc path="/" isPrivate={true} element={<ApplyJob />} />}
+      />
         <Route
           path="/"
           exact={true}

@@ -35,7 +35,7 @@ const JobFilter = () => {
             {job_category}
           </label>
         ))}
-      <h4>Location</h4>
+      {!!unique_job_locations?.length && <h4>Location</h4>}
       <div className="radio-options">
         {unique_job_locations.map((city) => (
           <label key={city}>
@@ -43,7 +43,7 @@ const JobFilter = () => {
               type="radio"
               name="location"
               value={city}
-              checked={locationFilter === city}
+              defaultChecked={locationFilter === city}
               onClick={handleLocationChange}
             />
             {city}

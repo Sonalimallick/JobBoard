@@ -2,15 +2,21 @@ import React, { useState } from "react";
 import "./Search.css";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import { Button, colors } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch } from "react-redux";
+import { updateSearch } from "../../Redux/JobReducer/JobSlice";
 
 function Search() {
   const [searchValue, setSearchValue] = useState("");
-  const handleSearch = () => {
-    alert("Search clicked by : " + searchValue);
-  };
+  const dispatch = useDispatch();
   const handleSearchChange = (e) => {
+    dispatch(updateSearch(e?.target?.value));
     setSearchValue(e?.target?.value);
+  };
+  const handleClearSearch = () => {
+    setSearchValue("");
+    dispatch(updateSearch(""));
   };
   return (
     <div className="SearchComponent">
@@ -22,9 +28,16 @@ function Search() {
           placeholder="Title, location, company..."
           value={searchValue}
           onChange={handleSearchChange}
-          onKeyDown={(e) =>(e?.keyCode === 13 || e?.key === "Enter") && handleSearch()}
         />
-        <Button variant="contained" onClick={handleSearch} className="SearchButton">Search</Button>
+        {searchValue && (
+          <IconButton
+            onClick={handleClearSearch}
+            className="SearchButton"
+            color="error"
+          >
+            <CloseIcon />
+          </IconButton>
+        )}
       </div>
     </div>
   );
