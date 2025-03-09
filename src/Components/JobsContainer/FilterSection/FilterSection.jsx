@@ -1,14 +1,9 @@
-// import React from "react";
-// function FilterSection() {
-//   return <div className="FilterSection">FilterSection</div>;
-// }
-
-// export default FilterSection;
-
 import React, { useState } from "react";
 import "./FilterSection.css";
+import { useSelector } from "react-redux";
 
 const JobFilter = ({ onFilterChange }) => {
+  const { jobData } = useSelector((state) => state?.jobs);
   const [fullTime, setFullTime] = useState(false);
   const [location, setLocation] = useState("");
 
@@ -21,18 +16,27 @@ const JobFilter = ({ onFilterChange }) => {
     setLocation(e.target.value);
     onFilterChange({ fullTime, location: e.target.value });
   };
-
+  const unique_job_categories = [
+    ...new Set(jobData?.map((job) => job?.job_category)),
+  ].sort();
+  const unique_job_locations = [
+    ...new Set(jobData?.map((job) => job?.location?.split(", ")?.[1])),
+  ].sort();
+  console.log(unique_job_locations);
   return (
     <div className="JobFilter">
-      <label>
-        <input
-          type="checkbox"
-          checked={fullTime}
-          onChange={handleFullTimeChange}
-        />
-        Full Time
-      </label>
-
+      {!!unique_job_categories?.length && <h4>Category</h4>}
+      {!!unique_job_categories &&
+        unique_job_categories?.map((job_category) => (
+          <label>
+            <input
+              type="checkbox"
+              checked={fullTime}
+              onChange={handleFullTimeChange}
+            />
+            {job_category}
+          </label>
+        ))}
       <h4>Location</h4>
       <input
         type="text"
@@ -42,7 +46,7 @@ const JobFilter = ({ onFilterChange }) => {
       />
 
       <div className="radio-options">
-        {["India", "London", "New York", "Berlin"].map((city) => (
+        {unique_job_locations.map((city) => (
           <label key={city}>
             <input
               type="radio"
